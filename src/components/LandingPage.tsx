@@ -1,6 +1,7 @@
 import { ArrowRight, Inbox, Bot, CheckCircle } from 'lucide-react';
 import { useState } from 'react';
 import AuthModal from './AuthModal';
+import Preview from '../Apppreview.png';
 
 interface LandingPageProps {
   onLogin: (email: string, password: string) => Promise<void>;
@@ -105,7 +106,7 @@ export default function LandingPage({ onLogin, onSignUp }: LandingPageProps) {
                   {/* Preview image (local file path used below) */}
                   <div className="rounded-lg overflow-hidden border border-black/6">
                     <img
-                      src="Apppreview.png"
+                      src={Preview}
                       alt="App preview"
                       className="w-full h-56 object-cover"
                     />

@@ -105,7 +105,7 @@ export default function LandingPage({ onLogin, onSignUp }: LandingPageProps) {
                   {/* Preview image (local file path used below) */}
                   <div className="rounded-lg overflow-hidden border border-black/6">
                     <img
-                      src="/mnt/data/6b26d58c-a8f0-40ed-8b9a-f55e93775b53.png"
+                      src="Apppreview.png"
                       alt="App preview"
                       className="w-full h-56 object-cover"
                     />

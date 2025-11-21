@@ -256,7 +256,7 @@ export default function AuthModal({ isOpen, onClose, onLogin, onSignUp }: AuthMo
               <button
                 type="button"
                 onClick={toggleMode}
-                className="text-sm font-medium text-blue-600 hover:text-blue-700 transition"
+                className="text-sm font-medium text-gray-900 hover:text-gray-1000 transition"
               >
                 {mode === 'login' ? (
                   <>Don't have an account? <span className="underline">Sign Up</span></>

@@ -334,8 +334,8 @@ export default function Dashboard({
                 <p className="text-gray-600 mt-1">Manage all feedback requests & add new feedback</p>
               </div>
 
-              {/* Stats row (liquid glass cards) */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+              {/* Stats row (liquid glass cards) - IN PROGRESS card removed */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                 <div
                   className="rounded-2xl p-5"
                   style={{
@@ -356,25 +356,7 @@ export default function Dashboard({
                   </div>
                 </div>
 
-                <div
-                  className="rounded-2xl p-5"
-                  style={{
-                    background: 'linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.32))',
-                    border: '1px solid var(--glass-border)',
-                    backdropFilter: 'blur(10px) saturate(120%)',
-                    boxShadow: '0 10px 30px rgba(2,6,23,0.06)',
-                  }}
-                >
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <div className="text-2xl font-bold text-gray-900">{stats.inProgress}</div>
-                      <div className="text-sm text-gray-600 mt-1">In Progress</div>
-                    </div>
-                    <span className="inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full bg-white/60 text-yellow-700 border border-white/50">
-                      Active
-                    </span>
-                  </div>
-                </div>
+                {/* NOTE: In Progress card intentionally removed to match requested layout */}
 
                 <div
                   className="rounded-2xl p-5"

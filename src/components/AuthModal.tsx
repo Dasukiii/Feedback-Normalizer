@@ -18,6 +18,8 @@ export default function AuthModal({ isOpen, onClose, onLogin, onSignUp }: AuthMo
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [confirmationEmail, setConfirmationEmail] = useState('');
+  // NEW: PDPA checkbox state (required for signup)
+  const [acceptedPDPA, setAcceptedPDPA] = useState(false);
 
   if (!isOpen) return null;
 
@@ -27,12 +29,20 @@ export default function AuthModal({ isOpen, onClose, onLogin, onSignUp }: AuthMo
     setLoading(true);
 
     try {
+      // Enforce PDPA acceptance for signup
+      if (mode === 'signup' && !acceptedPDPA) {
+        setError('You must accept the PDPA / privacy policy to create an account.');
+        setLoading(false);
+        return;
+      }
+
       if (mode === 'login') {
         await onLogin(email, password);
         resetForm();
       } else {
         await onSignUp(email, password, name, companyName, role);
         setConfirmationEmail(email);
+        // keep PDPA flagged until modal is closed or form reset
       }
     } catch (err: any) {
       setError(err?.message || 'An error occurred');
@@ -49,12 +59,19 @@ export default function AuthModal({ isOpen, onClose, onLogin, onSignUp }: AuthMo
     setRole('Manager');
     setError('');
     setConfirmationEmail('');
+    setAcceptedPDPA(false);
   };
 
   const toggleMode = () => {
     setMode(mode === 'login' ? 'signup' : 'login');
     setError('');
     setConfirmationEmail('');
+    setAcceptedPDPA(false);
+  };
+
+  const handleClose = () => {
+    resetForm();
+    onClose();
   };
 
   return (
@@ -67,7 +84,7 @@ export default function AuthModal({ isOpen, onClose, onLogin, onSignUp }: AuthMo
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-        onClick={onClose}
+        onClick={handleClose}
         aria-hidden
       />
 
@@ -86,10 +103,10 @@ export default function AuthModal({ isOpen, onClose, onLogin, onSignUp }: AuthMo
         >
           {/* Decorative top-right image (uses uploaded local asset path) */}
           <div className="absolute top-4 right-16 -z-0 opacity-30 pointer-events-none">
-            <img 
-              src={kadoshIcon} // This path assumes your icon is in the 'public' folder
-              alt="Kadosh AI" 
-              className="w-30 h-8" // You can adjust the size here
+            <img
+              src={kadoshIcon}
+              alt="Kadosh AI"
+              className="w-30 h-8"
             />
           </div>
 
@@ -99,7 +116,7 @@ export default function AuthModal({ isOpen, onClose, onLogin, onSignUp }: AuthMo
               {mode === 'login' ? 'Login' : 'Create your account'}
             </h2>
             <button
-              onClick={onClose}
+              onClick={handleClose}
               className="p-2 rounded-md text-slate-700 hover:bg-white/30 transition"
               aria-label="Close"
             >
@@ -195,46 +212,62 @@ export default function AuthModal({ isOpen, onClose, onLogin, onSignUp }: AuthMo
             )}
 
             {!confirmationEmail && mode === 'signup' && (
-              <div>
-                <label className="block text-sm font-medium text-slate-800 mb-3">
-                  Role <span className="text-red-500">*</span>
-                </label>
-                <div className="space-y-3">
-                  <label className="flex items-start cursor-pointer p-3 rounded-lg bg-white/60 border border-white/80">
-                    <input
-                      type="radio"
-                      name="role"
-                      value="Admin"
-                      checked={role === 'Admin'}
-                      onChange={(e) => setRole(e.target.value as 'Admin' | 'Manager')}
-                      className="w-4 h-4 text-blue-600 focus:ring-blue-500 mt-0.5"
-                    />
-                    <div className="ml-3">
-                      <span className="font-medium text-slate-900">Admin</span>
-                      <p className="text-xs text-slate-600 mt-0.5">
-                        Full system access. Can manage all feedback requests and users.
-                      </p>
-                    </div>
+              <>
+                <div>
+                  <label className="block text-sm font-medium text-slate-800 mb-3">
+                    Role <span className="text-red-500">*</span>
                   </label>
+                  <div className="space-y-3">
+                    <label className="flex items-start cursor-pointer p-3 rounded-lg bg-white/60 border border-white/80">
+                      <input
+                        type="radio"
+                        name="role"
+                        value="Admin"
+                        checked={role === 'Admin'}
+                        onChange={(e) => setRole(e.target.value as 'Admin' | 'Manager')}
+                        className="w-4 h-4 text-blue-600 focus:ring-blue-500 mt-0.5"
+                      />
+                      <div className="ml-3">
+                        <span className="font-medium text-slate-900">Admin</span>
+                        <p className="text-xs text-slate-600 mt-0.5">
+                          Full system access. Can manage all feedback requests and users.
+                        </p>
+                      </div>
+                    </label>
 
-                  <label className="flex items-start cursor-pointer p-3 rounded-lg bg-white/60 border border-white/80">
-                    <input
-                      type="radio"
-                      name="role"
-                      value="Manager"
-                      checked={role === 'Manager'}
-                      onChange={(e) => setRole(e.target.value as 'Admin' | 'Manager')}
-                      className="w-4 h-4 text-blue-600 focus:ring-blue-500 mt-0.5"
-                    />
-                    <div className="ml-3">
-                      <span className="font-medium text-slate-900">Manager</span>
-                      <p className="text-xs text-slate-600 mt-0.5">
-                        Manage assigned feedback and take actions on requests you own.
-                      </p>
-                    </div>
+                    <label className="flex items-start cursor-pointer p-3 rounded-lg bg-white/60 border border-white/80">
+                      <input
+                        type="radio"
+                        name="role"
+                        value="Manager"
+                        checked={role === 'Manager'}
+                        onChange={(e) => setRole(e.target.value as 'Admin' | 'Manager')}
+                        className="w-4 h-4 text-blue-600 focus:ring-blue-500 mt-0.5"
+                      />
+                      <div className="ml-3">
+                        <span className="font-medium text-slate-900">Manager</span>
+                        <p className="text-xs text-slate-600 mt-0.5">
+                          Manage assigned feedback and take actions on requests you own.
+                        </p>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                {/* PDPA checkbox required for signup */}
+                <div className="mt-4 flex items-start gap-3">
+                  <input
+                    id="pdpa"
+                    type="checkbox"
+                    checked={acceptedPDPA}
+                    onChange={(e) => setAcceptedPDPA(e.target.checked)}
+                    className="mt-1 accent-blue-500 w-4 h-4 rounded"
+                  />
+                  <label htmlFor="pdpa" className="text-sm text-slate-800">
+                    I agree to the <a href="/privacy" target="_blank" rel="noreferrer" className="text-blue-600 underline">PDPA / privacy policy</a> and consent to my data being used for account creation and service personalization.
                   </label>
                 </div>
-              </div>
+              </>
             )}
 
             {!confirmationEmail && (

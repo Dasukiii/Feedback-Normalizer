@@ -22,9 +22,9 @@ export default function LandingPage({ onLogin, onSignUp, onShowPrivacy }: Landin
   };
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 antialiased">
+    <div className="min-h-screen bg-white text-slate-900 antialiased flex flex-col">
       {/* Header */}
-      <header className="relative z-20">
+      <header className="relative z-20 flex-shrink-0">
         <div className="container mx-auto px-6 py-5 flex items-center justify-between">
           <h1 className="text-2xl font-bold tracking-tight">Feedback Normalizer</h1>
           <div className="flex items-center gap-3">
@@ -39,7 +39,7 @@ export default function LandingPage({ onLogin, onSignUp, onShowPrivacy }: Landin
       </header>
 
       {/* Main */}
-      <main className="container mx-auto px-6 py-16">
+      <main className="container mx-auto px-6 py-16 flex-grow">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           {/* Left: content */}
           <div className="lg:col-span-7">
@@ -166,7 +166,7 @@ export default function LandingPage({ onLogin, onSignUp, onShowPrivacy }: Landin
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-100 bg-gray-50">
+      <footer className="border-t border-gray-100 bg-gray-50 flex-shrink-0 mt-auto">
         <div className="container mx-auto px-6 py-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-2 text-sm text-slate-500">

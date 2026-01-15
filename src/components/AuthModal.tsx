@@ -6,9 +6,10 @@ interface AuthModalProps {
   onClose: () => void;
   onLogin: (email: string, password: string) => Promise<void>;
   onSignUp: (email: string, password: string, name: string, companyName: string, role: string) => Promise<void>;
+  onShowPrivacy: () => void;
 }
 
-export default function AuthModal({ isOpen, onClose, onLogin, onSignUp }: AuthModalProps) {
+export default function AuthModal({ isOpen, onClose, onLogin, onSignUp, onShowPrivacy }: AuthModalProps) {
   const [mode, setMode] = useState<'login' | 'signup'>('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -264,7 +265,18 @@ export default function AuthModal({ isOpen, onClose, onLogin, onSignUp }: AuthMo
                     className="mt-1 accent-blue-500 w-4 h-4 rounded"
                   />
                   <label htmlFor="pdpa" className="text-sm text-slate-800">
-                    I agree to the <a href="/privacy" target="_blank" rel="noreferrer" className="text-blue-600 underline">PDPA / privacy policy</a> and consent to my data being used for account creation and service personalization.
+                    I agree to the{' '}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onClose();
+                        onShowPrivacy();
+                      }}
+                      className="text-blue-600 underline hover:text-blue-700"
+                    >
+                      PDPA / privacy policy
+                    </button>{' '}
+                    and consent to my data being used for account creation and service personalization.
                   </label>
                 </div>
               </>

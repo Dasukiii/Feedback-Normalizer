@@ -2,13 +2,15 @@ import { ArrowRight, Inbox, Bot, CheckCircle } from 'lucide-react';
 import { useState } from 'react';
 import AuthModal from './AuthModal';
 import Preview from '../Apppreview.png';
+import KadoshLogo from '../kadosh-ai-icon.png';
 
 interface LandingPageProps {
   onLogin: (email: string, password: string) => Promise<void>;
   onSignUp: (email: string, password: string, name: string, companyName: string, role: string) => Promise<void>;
+  onShowPrivacy: () => void;
 }
 
-export default function LandingPage({ onLogin, onSignUp }: LandingPageProps) {
+export default function LandingPage({ onLogin, onSignUp, onShowPrivacy }: LandingPageProps) {
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   const handleLoginClick = () => {
@@ -164,22 +166,37 @@ export default function LandingPage({ onLogin, onSignUp }: LandingPageProps) {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-100">
-        <div className="container mx-auto px-6 py-6 flex items-center justify-between text-sm text-slate-500">
-          <div>© {new Date().getFullYear()} Feedback Normalizer</div>
-          <div className="hidden sm:flex gap-6">
-            <a href="#terms" className="hover:underline">Terms</a>
-            <a href="#privacy" className="hover:underline">Privacy</a>
+      <footer className="border-t border-gray-100 bg-gray-50">
+        <div className="container mx-auto px-6 py-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-2 text-sm text-slate-500">
+              <span>Powered by</span>
+              <img src={KadoshLogo} alt="Kadosh AI" className="h-6 w-auto" />
+            </div>
+
+            <div className="text-sm text-slate-500 text-center">
+              2026 Feedback Normalizer. All rights reserved.
+            </div>
+
+            <div className="flex gap-6 text-sm">
+              <button
+                onClick={onShowPrivacy}
+                className="text-slate-500 hover:text-slate-700 hover:underline transition-colors"
+              >
+                PDPA Policy
+              </button>
+            </div>
           </div>
         </div>
       </footer>
 
-      {/* Auth modal unchanged */}
+      {/* Auth modal */}
       <AuthModal
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
         onLogin={onLogin}
         onSignUp={onSignUp}
+        onShowPrivacy={onShowPrivacy}
       />
     </div>
   );

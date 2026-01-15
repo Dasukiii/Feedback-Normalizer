@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import { useAuth } from './hooks/useAuth';
 import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
+import PrivacyPolicy from './components/PrivacyPolicy';
 
 function App() {
   const { user, profile, loading, signIn, signUp, signOut } = useAuth();
+  const [showPrivacy, setShowPrivacy] = useState(false);
 
   const handleLogin = async (email: string, password: string) => {
     await signIn(email, password);
@@ -38,6 +41,10 @@ function App() {
     );
   }
 
+  if (showPrivacy) {
+    return <PrivacyPolicy onBack={() => setShowPrivacy(false)} />;
+  }
+
   if (user && profile) {
     return (
       <Dashboard
@@ -54,6 +61,7 @@ function App() {
     <LandingPage
       onLogin={handleLogin}
       onSignUp={handleSignUp}
+      onShowPrivacy={() => setShowPrivacy(true)}
     />
   );
 }

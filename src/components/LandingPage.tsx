@@ -167,24 +167,19 @@ export default function LandingPage({ onLogin, onSignUp, onShowPrivacy }: Landin
       {/* Footer */}
       <footer className="border-t border-gray-100 bg-gray-50 flex-shrink-0 mt-auto">
         <div className="container mx-auto px-6 py-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
             <div className="flex items-center gap-2 text-sm text-slate-500">
-              <span>Powered by</span>
-              <img src={KadoshLogo} alt="Kadosh AI" className="h-6 w-auto" />
+              <span>Copyright © 2026</span>
+              <img src={KadoshLogo} alt="Kadosh AI" className="h-5 w-auto" />
+              <span>. All rights reserved.</span>
             </div>
-
-            <div className="text-sm text-slate-500 text-center">
-              2026 Feedback Normalizer. All rights reserved.
-            </div>
-
-            <div className="flex gap-6 text-sm">
-              <button
-                onClick={onShowPrivacy}
-                className="text-slate-500 hover:text-slate-700 hover:underline transition-colors"
-              >
-                PDPA Policy
-              </button>
-            </div>
+            <span className="hidden md:inline text-slate-300">|</span>
+            <button
+              onClick={onShowPrivacy}
+              className="text-sm text-slate-500 hover:text-slate-700 hover:underline transition-colors"
+            >
+              PDPA Policy
+            </button>
           </div>
         </div>
       </footer>

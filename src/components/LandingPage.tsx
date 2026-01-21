@@ -13,10 +13,6 @@ interface LandingPageProps {
 export default function LandingPage({ onLogin, onSignUp, onShowPrivacy }: LandingPageProps) {
   const [showAuthModal, setShowAuthModal] = useState(false);
 
-  const handleLoginClick = () => {
-    setShowAuthModal(true);
-  };
-
   const handleGetStartedClick = () => {
     setShowAuthModal(true);
   };
@@ -25,16 +21,10 @@ export default function LandingPage({ onLogin, onSignUp, onShowPrivacy }: Landin
     <div className="min-h-screen bg-white text-slate-900 antialiased flex flex-col">
       {/* Header */}
       <header className="relative z-20 flex-shrink-0">
-        <div className="container mx-auto px-6 py-5 flex items-center justify-between">
-          <h1 className="text-2xl font-bold tracking-tight">Feedback Normalizer</h1>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={handleLoginClick}
-              className="px-4 py-2 rounded-full border border-gray-200 text-sm hover:bg-gray-50 transition"
-            >
-              Login
-            </button>
-          </div>
+        <div className="container mx-auto px-6 py-5">
+          <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 bg-clip-text text-transparent">
+            Feedback Normalizer
+          </h1>
         </div>
       </header>
 
@@ -138,28 +128,37 @@ export default function LandingPage({ onLogin, onSignUp, onShowPrivacy }: Landin
         {/* Benefit cards row */}
         <section className="mt-16">
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
-              <div className="w-12 h-12 rounded-lg bg-slate-800 text-white flex items-center justify-center mb-4">
-                <Inbox className="w-5 h-5" />
+            <div className="group relative bg-white rounded-xl p-6 border border-gray-100 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-400/30 hover:border-slate-300">
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-slate-500/10 to-slate-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="relative">
+                <div className="w-12 h-12 rounded-lg bg-slate-800 text-white flex items-center justify-center mb-4">
+                  <Inbox className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2">Unified Inbox</h3>
+                <p className="text-sm text-slate-600">All feedback in one place — no more lost emails or chat messages. Centralized intake and history.</p>
               </div>
-              <h3 className="text-lg font-semibold mb-2">Unified Inbox</h3>
-              <p className="text-sm text-slate-600">All feedback in one place — no more lost emails or chat messages. Centralized intake and history.</p>
             </div>
 
-            <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
-              <div className="w-12 h-12 rounded-lg bg-emerald-600 text-white flex items-center justify-center mb-4">
-                <Bot className="w-5 h-5" />
+            <div className="group relative bg-white rounded-xl p-6 border border-gray-100 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-400/30 hover:border-emerald-300">
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="relative">
+                <div className="w-12 h-12 rounded-lg bg-emerald-600 text-white flex items-center justify-center mb-4">
+                  <Bot className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2">AI Auto-Triage</h3>
+                <p className="text-sm text-slate-600">Automatically categorize and prioritize with intelligent extraction and routing to owners.</p>
               </div>
-              <h3 className="text-lg font-semibold mb-2">AI Auto-Triage</h3>
-              <p className="text-sm text-slate-600">Automatically categorize and prioritize with intelligent extraction and routing to owners.</p>
             </div>
 
-            <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
-              <div className="w-12 h-12 rounded-lg bg-rose-500 text-white flex items-center justify-center mb-4">
-                <CheckCircle className="w-5 h-5" />
+            <div className="group relative bg-white rounded-xl p-6 border border-gray-100 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-rose-400/30 hover:border-rose-300">
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-rose-500/10 to-rose-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="relative">
+                <div className="w-12 h-12 rounded-lg bg-rose-500 text-white flex items-center justify-center mb-4">
+                  <CheckCircle className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2">Clear Accountability</h3>
+                <p className="text-sm text-slate-600">Track owners, statuses, and due dates in real time so every piece of feedback leads to action.</p>
               </div>
-              <h3 className="text-lg font-semibold mb-2">Clear Accountability</h3>
-              <p className="text-sm text-slate-600">Track owners, statuses, and due dates in real time so every piece of feedback leads to action.</p>
             </div>
           </div>
         </section>

@@ -254,94 +254,163 @@ export default function RequestDetail({ requestId, onClose, onUpdate }: RequestD
 
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
     const margin = 20;
-    const maxWidth = pageWidth - 2 * margin;
-    let yPosition = 20;
+    const contentWidth = pageWidth - 2 * margin;
+    let yPosition = 25;
 
-    // Header
-    doc.setFontSize(18);
+    const checkPageBreak = (requiredSpace: number) => {
+      if (yPosition + requiredSpace > pageHeight - 25) {
+        doc.addPage();
+        yPosition = 25;
+        return true;
+      }
+      return false;
+    };
+
+    const drawSectionBox = (startY: number, height: number, color: [number, number, number]) => {
+      doc.setFillColor(color[0], color[1], color[2]);
+      doc.roundedRect(margin - 5, startY - 8, contentWidth + 10, height + 12, 3, 3, 'F');
+    };
+
+    doc.setFillColor(30, 41, 59);
+    doc.rect(0, 0, pageWidth, 45, 'F');
+
+    doc.setFontSize(22);
     doc.setFont('helvetica', 'bold');
-    doc.text('Feedback Request Report', margin, yPosition);
-    yPosition += 10;
+    doc.setTextColor(255, 255, 255);
+    doc.text('Feedback Request Report', margin, 22);
 
-    // Request ID and Date
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
-    doc.setTextColor(100);
-    doc.text(`REQ-${request.id.slice(0, 8).toUpperCase()}`, margin, yPosition);
-    doc.text(`Generated: ${new Date().toLocaleString()}`, pageWidth - margin - 60, yPosition);
+    doc.setTextColor(200, 200, 200);
+    doc.text(`REQ-${request.id.slice(0, 8).toUpperCase()}`, margin, 35);
+    doc.text(`Generated: ${new Date().toLocaleString()}`, pageWidth - margin - 55, 35);
+
+    yPosition = 60;
+
+    const aiBoxStartY = yPosition;
+    const descLines = doc.splitTextToSize(request.description || 'No description available', contentWidth - 10);
+    const aiBoxHeight = 45 + descLines.length * 5;
+    drawSectionBox(aiBoxStartY, aiBoxHeight, [248, 250, 252]);
+
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(30, 41, 59);
+    doc.text('AI Analysis', margin, yPosition);
+    yPosition += 10;
+
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'italic');
+    doc.setTextColor(71, 85, 105);
+    doc.text(descLines, margin, yPosition);
+    yPosition += descLines.length * 5 + 12;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+
+    const metadataItems = [
+      { label: 'Category', value: request.category || 'N/A' },
+      { label: 'Priority', value: request.priority?.toUpperCase() || 'N/A' },
+      { label: 'Status', value: request.status || 'N/A' },
+      { label: 'Suggested Owner', value: request.suggested_owner || 'N/A' },
+    ];
+
+    metadataItems.forEach((item) => {
+      doc.setTextColor(100, 116, 139);
+      doc.setFont('helvetica', 'bold');
+      doc.text(`${item.label}: `, margin, yPosition);
+      const labelWidth = doc.getTextWidth(`${item.label}: `);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(30, 41, 59);
+      doc.text(item.value, margin + labelWidth, yPosition);
+      yPosition += 6;
+    });
+
+    if (request.tags && request.tags.length > 0) {
+      yPosition += 2;
+      doc.setTextColor(100, 116, 139);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Tags: ', margin, yPosition);
+      const labelWidth = doc.getTextWidth('Tags: ');
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(30, 41, 59);
+      doc.text(request.tags.join(', '), margin + labelWidth, yPosition);
+    }
+
+    yPosition += 20;
+    checkPageBreak(30);
+
+    doc.setDrawColor(226, 232, 240);
+    doc.setLineWidth(0.5);
+    doc.line(margin, yPosition, pageWidth - margin, yPosition);
     yPosition += 15;
 
-    // Divider
-    doc.setDrawColor(200);
-    doc.line(margin, yPosition, pageWidth - margin, yPosition);
-    yPosition += 10;
-
-    // AI Analysis Section
     doc.setFontSize(14);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(0);
-    doc.text('AI Analysis', margin, yPosition);
-    yPosition += 8;
+    doc.setTextColor(30, 41, 59);
+    doc.text('Original Feedback', margin, yPosition);
+    yPosition += 12;
 
-    // Description
+    const rawFeedback = request.raw_feedback || 'No feedback available';
+    const paragraphs = rawFeedback.split(/\n\s*\n/).filter((p: string) => p.trim());
+
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
-    const descriptionLines = doc.splitTextToSize(request.description || 'No description available', maxWidth);
-    doc.text(descriptionLines, margin, yPosition);
-    yPosition += descriptionLines.length * 5 + 10;
+    doc.setTextColor(51, 65, 85);
 
-    // Metadata
-    doc.setFontSize(9);
-    doc.setTextColor(60);
-    doc.text(`Category: ${request.category || 'N/A'}`, margin, yPosition);
-    yPosition += 5;
-    doc.text(`Priority: ${request.priority?.toUpperCase() || 'N/A'}`, margin, yPosition);
-    yPosition += 5;
-    doc.text(`Status: ${request.status || 'N/A'}`, margin, yPosition);
-    yPosition += 5;
-    doc.text(`Suggested Owner: ${request.suggested_owner || 'N/A'}`, margin, yPosition);
-    yPosition += 10;
+    paragraphs.forEach((paragraph: string, index: number) => {
+      const lines = paragraph.split('\n');
 
-    // Tags
-    if (request.tags && request.tags.length > 0) {
-      doc.text(`Tags: ${request.tags.join(', ')}`, margin, yPosition);
-      yPosition += 10;
-    }
+      lines.forEach((line: string) => {
+        const trimmedLine = line.trim();
+        if (!trimmedLine) return;
 
-    // Check if we need a new page
-    if (yPosition > 250) {
-      doc.addPage();
-      yPosition = 20;
-    }
+        const isHeader = /^[A-Z][A-Za-z\s]+[:\-]?$/.test(trimmedLine) ||
+                        /^[A-Z]{2,}/.test(trimmedLine) ||
+                        /^\d+\./.test(trimmedLine) ||
+                        trimmedLine.endsWith(':');
 
-    // Divider
-    doc.setDrawColor(200);
-    doc.line(margin, yPosition, pageWidth - margin, yPosition);
-    yPosition += 10;
+        checkPageBreak(isHeader ? 15 : 8);
 
-    // Original Feedback Section
-    doc.setFontSize(14);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(0);
-    doc.text('Original Feedback', margin, yPosition);
-    yPosition += 8;
+        if (isHeader) {
+          yPosition += 4;
+          doc.setFont('helvetica', 'bold');
+          doc.setTextColor(30, 41, 59);
+          const headerLines = doc.splitTextToSize(trimmedLine, contentWidth);
+          doc.text(headerLines, margin, yPosition);
+          yPosition += headerLines.length * 5 + 3;
+          doc.setFont('helvetica', 'normal');
+          doc.setTextColor(51, 65, 85);
+        } else {
+          const textLines = doc.splitTextToSize(trimmedLine, contentWidth);
+          textLines.forEach((textLine: string) => {
+            checkPageBreak(6);
+            doc.text(textLine, margin, yPosition);
+            yPosition += 5;
+          });
+        }
+      });
 
-    doc.setFontSize(9);
-    doc.setFont('helvetica', 'normal');
-    const feedbackLines = doc.splitTextToSize(request.raw_feedback || 'No feedback available', maxWidth);
-
-    // Handle pagination for long feedback
-    for (let i = 0; i < feedbackLines.length; i++) {
-      if (yPosition > 280) {
-        doc.addPage();
-        yPosition = 20;
+      if (index < paragraphs.length - 1) {
+        yPosition += 6;
       }
-      doc.text(feedbackLines[i], margin, yPosition);
-      yPosition += 4;
+    });
+
+    const totalPages = doc.getNumberOfPages();
+    for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(150, 150, 150);
+      doc.text(
+        `Page ${i} of ${totalPages}`,
+        pageWidth / 2,
+        pageHeight - 10,
+        { align: 'center' }
+      );
     }
 
-    // Save the PDF
     const fileName = `Feedback_${request.requester_name?.replace(/\s+/g, '_') || 'Request'}_${new Date().toISOString().split('T')[0]}.pdf`;
     doc.save(fileName);
   };

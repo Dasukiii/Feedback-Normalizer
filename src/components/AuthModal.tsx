@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X } from 'lucide-react';
+import { X, Eye, EyeOff } from 'lucide-react';
 import kadoshIcon from '../kadosh-ai-icon.png';
 interface AuthModalProps {
   isOpen: boolean;
@@ -19,8 +19,8 @@ export default function AuthModal({ isOpen, onClose, onLogin, onSignUp, onShowPr
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [confirmationEmail, setConfirmationEmail] = useState('');
-  // NEW: PDPA checkbox state (required for signup)
   const [acceptedPDPA, setAcceptedPDPA] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   if (!isOpen) return null;
 
@@ -61,6 +61,7 @@ export default function AuthModal({ isOpen, onClose, onLogin, onSignUp, onShowPr
     setError('');
     setConfirmationEmail('');
     setAcceptedPDPA(false);
+    setShowPassword(false);
   };
 
   const toggleMode = () => {
@@ -68,6 +69,7 @@ export default function AuthModal({ isOpen, onClose, onLogin, onSignUp, onShowPr
     setError('');
     setConfirmationEmail('');
     setAcceptedPDPA(false);
+    setShowPassword(false);
   };
 
   const handleClose = () => {
@@ -198,16 +200,26 @@ export default function AuthModal({ isOpen, onClose, onLogin, onSignUp, onShowPr
                   <label htmlFor="password" className="block text-sm font-medium text-slate-800 mb-2">
                     Password <span className="text-red-500">*</span>
                   </label>
-                  <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-4 py-2 rounded-lg bg-white/70 border border-white/80 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    placeholder="Enter your password"
-                    required
-                    minLength={6}
-                  />
+                  <div className="relative">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      id="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="w-full px-4 py-2 pr-10 rounded-lg bg-white/70 border border-white/80 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      placeholder="Enter your password"
+                      required
+                      minLength={6}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 hover:text-slate-800 transition"
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    >
+                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
+                  </div>
                 </div>
               </>
             )}

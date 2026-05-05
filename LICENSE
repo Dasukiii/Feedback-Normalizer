@@ -1,0 +1,156 @@
+Restrictive Use License
+
+Copyright (c) 2026 Chin Hong An & The Learning Matchmaker Sdn Bhd (trading as KadoshAI)
+All Rights Reserved.
+
+TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+1. DEFINITIONS
+
+   "License" shall mean the terms and conditions for use, reproduction, and
+   distribution as defined in this document.
+
+   "Licensors" shall mean Chin Hong An and The Learning Matchmaker Sdn Bhd
+   (trading as KadoshAI), jointly as the copyright owners and original authors
+   of the Work. References to "Licensor" herein shall mean both parties
+   collectively, unless otherwise specified.
+
+   "Work" shall mean the source code, documentation, configuration files,
+   assets, and any other materials made available under this License.
+
+   "Derivative Works" shall mean any work that is based on, modifies, extends,
+   or incorporates the Work in whole or in part.
+
+   "You" (or "Your") shall mean an individual or legal entity exercising
+   permissions granted by this License.
+
+   "Commercial Use" shall mean any use of the Work intended for or directed
+   toward commercial advantage or monetary compensation, including but not
+   limited to selling, licensing, sublicensing, or incorporating the Work into
+   a product or service offered for sale.
+
+2. GRANT OF LIMITED LICENSE
+
+   Subject to the terms and conditions of this License, the Licensors hereby
+   grant You a limited, non-exclusive, non-transferable, revocable license
+   to:
+
+   a) View and read the source code for personal, educational, or research
+      purposes only.
+
+   b) Fork and clone the repository solely for personal study and
+      non-commercial experimentation.
+
+   c) Run the software locally for personal, non-commercial evaluation
+      purposes only.
+
+3. RESTRICTIONS
+
+   The following activities are expressly prohibited without prior written
+   consent from both Licensors:
+
+   a) COMMERCIAL USE: You may not use the Work, in whole or in part, for any
+      Commercial Use.
+
+   b) REDISTRIBUTION: You may not distribute, publish, sublicense, sell, or
+      otherwise make the Work available to third parties in any form, whether
+      modified or unmodified.
+
+   c) DERIVATIVE WORKS: You may not create, distribute, or publish Derivative
+      Works based on the Work without explicit written permission from both
+      Licensors.
+
+   d) REMOVAL OF NOTICES: You may not remove, alter, or obscure any copyright
+      notices, license texts, or attribution notices contained in the Work.
+
+   e) MISREPRESENTATION: You may not claim authorship or ownership of the
+      Work or any substantial portion thereof, nor misrepresent the origin of
+      the Work.
+
+   f) DEPLOYMENT: You may not deploy, host, or make the Work publicly
+      accessible on any server, platform, or service without written
+      permission from the Licensors.
+
+4. ATTRIBUTION
+
+   Any permitted use of the Work must include clear and prominent attribution
+   to the original authors:
+
+      Chin Hong An & The Learning Matchmaker Sdn Bhd (trading as KadoshAI)
+
+   Attribution must be preserved in all copies or substantial portions of the
+   Work.
+
+5. JOINT OWNERSHIP
+
+   The Work is jointly owned by Chin Hong An and The Learning Matchmaker Sdn
+   Bhd (trading as KadoshAI). Neither party may independently grant permissions
+   beyond the scope of this License without the written consent of the other
+   party. Both parties retain equal rights, title, and interest in and to the
+   Work.
+
+6. INTELLECTUAL PROPERTY
+
+   This License does not grant You any rights to trademarks, service marks,
+   trade names, or any other intellectual property of either Licensor. All
+   rights, title, and interest in and to the Work, including all intellectual
+   property rights therein, remain exclusively with the Licensors.
+
+7. NO WARRANTY
+
+   THE WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL
+   THE LICENSORS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER
+   IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN
+   CONNECTION WITH THE WORK OR THE USE OR OTHER DEALINGS IN THE WORK.
+
+8. LIMITATION OF LIABILITY
+
+   IN NO EVENT SHALL THE LICENSORS BE LIABLE FOR ANY INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+   PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES, LOSS OF USE, DATA, OR
+   PROFITS, OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+   LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+   NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE WORK,
+   EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+9. TERMINATION
+
+   a) This License is effective until terminated. Your rights under this
+      License will terminate automatically without notice if You fail to
+      comply with any term or condition herein.
+
+   b) Either Licensor reserves the right to terminate this License at any
+      time, for any reason, with or without notice.
+
+   c) Upon termination, You must immediately cease all use of the Work and
+      destroy all copies in Your possession or control.
+
+10. REQUESTING PERMISSION
+
+    For permissions beyond the scope of this License, including but not
+    limited to commercial use, redistribution, or creation of Derivative
+    Works, please contact the Licensors directly via the repository's issue
+    tracker or communication channels provided.
+
+11. GOVERNING LAW
+
+    This License shall be governed by and construed in accordance with the
+    laws of Malaysia, without regard to its conflict of law provisions.
+
+12. SEVERABILITY
+
+    If any provision of this License is held to be unenforceable or invalid,
+    such provision shall be modified to the minimum extent necessary to make
+    it enforceable, and the remaining provisions shall continue in full force
+    and effect.
+
+13. ENTIRE AGREEMENT
+
+    This License constitutes the entire agreement between You and the
+    Licensors with respect to the Work and supersedes all prior or
+    contemporaneous understandings, agreements, or representations.
+
+END OF TERMS AND CONDITIONS
+
